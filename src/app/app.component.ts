@@ -7,7 +7,10 @@ import { Component } from '@angular/core';
   styles: ['']
 })
 export class AppComponent {
-  tagetState
+  // Title
+  title = "Eight Puzzle";
+  // Estado alvo
+  tagetState: number[][] = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   // Inicializa o puzzle com o estado alvo
   puzzle: number[][] = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 

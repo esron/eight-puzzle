@@ -1,24 +1,9 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="#">{{ title }}</a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
+    
   </div>
 </nav>
   
@@ -26,7 +11,7 @@
   <div class="row content">
     <div class="col-sm-4 sidenav"></div>
     <div class="col-sm-4 text-center"> 
-        <table class="table table-bordered" id="puzzle">
+        <table class="table" id="puzzle">
             <tbody>
               <tr>
                 <td><input (click)="movement(1, 0, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[0][0] }}"
