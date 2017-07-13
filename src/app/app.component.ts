@@ -18,7 +18,7 @@ export class AppComponent {
 
   constructor() {
     // Inicializa o puzzle com o estado alvo
-    this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+    this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 0);
     // this.shuflle(50);
   }
 
@@ -201,34 +201,78 @@ export class AppComponent {
 
     switch(state.emptyCell) {
       case 1: {
-        newState = new State(state.board);
-        lst.push(newState.swipe(0, 1, 0, 0))
-        newState = new State(state.board);
-        lst.push(newState.swipe(1, 0, 0, 0))
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 1, 0, 0));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 0, 0, 0));
         return lst;
       }
       case 2: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 0, 0, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 2, 0, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 1, 0, 1));
         return lst;
       }
       case 3: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 1, 0, 2));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 2, 0, 2));
         return lst;
       }
       case 4: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 0, 1, 0));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 1, 1, 0));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 0, 1, 0));
         return lst;
       }
       case 5: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 1, 1, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 0, 1, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 2, 1, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 1, 1, 1));
         return lst;
       }
       case 6: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(0, 2, 1, 2));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 1, 1, 2));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 2, 1, 2));
         return lst;
       }
       case 7: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 0, 2, 0));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 1, 2, 0));
         return lst;
       }
       case 8: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 1, 2, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 0, 2, 1));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 2, 2, 1));
         return lst;
       }
       case 9: {
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(1, 2, 2, 2));
+        newState = new State(state.board, state.depth + 1);
+        lst.push(newState.swipe(2, 1, 2, 2));
         return lst;
       }
     }
@@ -238,7 +282,7 @@ export class AppComponent {
     console.log("Resolvendo");
 
     // Estado corrente
-    let currentState: State = new State(this.puzzle.board);
+    let currentState: State = new State(this.puzzle.board, 0);
 
     // Borda
     let border: State[] = [];

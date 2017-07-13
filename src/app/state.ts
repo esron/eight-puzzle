@@ -2,15 +2,19 @@ export class State {
     board: number[][] = [];
     heuristic: number = 0;
     emptyCell: number;
+    depth: number;
+    visited: boolean = false;
+    parent: State;   
 
-    constructor(board: number[][]) {
+    constructor(board: number[][], depth) {
         for (let i = 0; i < 3; i++) {
             this.board[i] = [];
             for (let j = 0; j < 3; j++) {
                 this.board[i][j] = board[i][j];
             }
         }
-
+        
+        this.depth = depth;
         this.hn();
     }
 
@@ -60,7 +64,7 @@ export class State {
                     }
                 }
             }
-        this.heuristic = newHeuristic;
+        this.heuristic = newHeuristic + this.depth;
     }
 
     // Tenta trocar o ponto (x1, y1) pelo ponto (x2, y2)
@@ -79,5 +83,6 @@ export class State {
        for (let i = 0; i < 3; i++)
         console.log(this.board[i][0] + " " + this.board[i][1] + " " + this.board[i][2]);
        console.log("h(n) =  "+ this.heuristic +"\n");
+       console.log("Profundidade: " + this.depth);
     }
 }
