@@ -14,37 +14,35 @@
         <table class="table" id="puzzle">
             <tbody>
               <tr>
-                <td><input (click)="movement(1, 0, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[0][0] }}"
+                <td><input (click)="movement(1, 0, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[0][0] }}"
                   [style.display]="isVisible(0, 0) ? 'block' : 'none'"></td>
-                <td><input (click)="movement(2, 0, 1)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[0][1] }}"
+                <td><input (click)="movement(2, 0, 1)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[0][1] }}"
                   [style.display]="isVisible(0, 1) ? 'block' : 'none'"></td>
-                <td><input (click)="movement(3, 0, 2)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[0][2] }}"
+                <td><input (click)="movement(3, 0, 2)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[0][2] }}"
                   [style.display]="isVisible(0, 2) ? 'block' : 'none'"></td>
               </tr>
               <tr>
-                <td><input (click)="movement(4, 1, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[1][0] }}"
+                <td><input (click)="movement(4, 1, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[1][0] }}"
                   [style.display]="isVisible(1, 0) ? 'block' : 'none'"></td>
-                <td><input (click)="movement(5, 1, 1)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[1][1] }}"
+                <td><input (click)="movement(5, 1, 1)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[1][1] }}"
                   [style.display]="isVisible(1, 1) ? 'block' : 'none'"></td>
-                <td><input (click)="movement(6, 1, 2)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[1][2] }}"
+                <td><input (click)="movement(6, 1, 2)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[1][2] }}"
                   [style.display]="isVisible(1, 2) ? 'block' : 'none'"></td>
               </tr>
               <tr>
-                <td><input (click)="movement(7, 2, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[2][0] }}"
+                <td><input (click)="movement(7, 2, 0)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[2][0] }}"
                   [style.display]="isVisible(2, 0) ? 'block' : 'none'"></td>
-                <td><input (click)="movement(8, 2, 1)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[2][1] }}"
+                <td><input (click)="movement(8, 2, 1)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[2][1] }}"
                   [style.display]="isVisible(2, 1) ? 'block' : 'none'"></td>
-                <td><input (click)="movement(9, 2, 2)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle[2][2] }}"
+                <td><input (click)="movement(9, 2, 2)" type="button" class="btn btn-primary btn-lg" value="{{ puzzle.board[2][2] }}"
                   [style.display]="isVisible(2, 2) ? 'block' : 'none'"></td>
               </tr>
             </tbody>
         </table>
+        <br>
         <input type="button" class="btn" value="Embaralhar" (click)="shuflle(50)">
+        <input type="button" class="btn" value="Resolver" (click)="solvePuzzle()">
     </div>
     <div class="col-sm-4 sidenav"></div>
   </div>
 </div>
-
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
