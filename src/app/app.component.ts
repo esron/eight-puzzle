@@ -18,7 +18,7 @@ export class AppComponent {
 
   constructor() {
     // Inicializa o puzzle com o estado alvo
-    this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 0);
+    this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 0, null);
     // this.shuflle(50);
   }
 
@@ -188,7 +188,7 @@ export class AppComponent {
   }
 
   compareHeuristc(a: State, b: State) {
-    return a.heuristic - b.heuristic;
+    return (a.hn + a.depth) - (b.hn + b.depth);
   }
 
   // Gera os estados a partir de um estado e adiciona à borda
@@ -201,77 +201,77 @@ export class AppComponent {
 
     switch(state.emptyCell) {
       case 1: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 1, 0, 0));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 0, 0, 0));
         return lst;
       }
       case 2: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 0, 0, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 2, 0, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 1, 0, 1));
         return lst;
       }
       case 3: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 1, 0, 2));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 2, 0, 2));
         return lst;
       }
       case 4: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 0, 1, 0));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 1, 1, 0));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 0, 1, 0));
         return lst;
       }
       case 5: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 1, 1, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 0, 1, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 2, 1, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 1, 1, 1));
         return lst;
       }
       case 6: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(0, 2, 1, 2));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 1, 1, 2));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 2, 1, 2));
         return lst;
       }
       case 7: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 0, 2, 0));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 1, 2, 0));
         return lst;
       }
       case 8: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 1, 2, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 0, 2, 1));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 2, 2, 1));
         return lst;
       }
       case 9: {
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(1, 2, 2, 2));
-        newState = new State(state.board, state.depth + 1);
+        newState = new State(state.board, state.depth + 1, state);
         lst.push(newState.swipe(2, 1, 2, 2));
         return lst;
       }
@@ -279,18 +279,55 @@ export class AppComponent {
   }
 
   solvePuzzle() {
-    console.log("Resolvendo");
+    console.log("Resolvendo...");
 
     // Estado corrente
-    let currentState: State = new State(this.puzzle.board, 0);
+    let currentState: State = new State(this.puzzle.board, 0, null);
 
     // Borda
-    let border: State[] = [];
+    let border: State[] = [currentState];
 
-    this.expandBorder(currentState).forEach(element => { border.push(element) });
+    // Solução
+    let soluction: State[] = [];
 
-    border.sort(this.compareHeuristc);
+    while (border.length != 0) {
+      console.log("Expandindo: \n" + border[0].toString());
 
-    border.forEach(element => { element.logBoard() });
+      currentState = border.shift().visit();
+
+      if (currentState.hn == 0) {
+        while(currentState.parent != null) {
+          soluction.push(currentState);
+          currentState = currentState.parent;
+        }
+        break;
+      }
+
+
+      this.expandBorder(currentState).forEach(element => { border.push(element) });
+
+      
+
+      
+      border.sort(this.compareHeuristc);
+    }
+
+    /*
+    for(let i = 0; i < 2; i++){
+      console.log("Expandindo: \n" + border[0].toString());
+      this.expandBorder(border.shift().visit()).forEach(element => { border.push(element) });
+      border.sort(this.compareHeuristc);
+    }
+    border.forEach(element => { console.log(element.toString()) });
+    */
+
+    this.showSoluction(soluction);
+  }
+
+  showSoluction(soluction: State[]) {
+    if (soluction.length != 0) {
+      this.puzzle = soluction.pop();
+      window.setTimeout(() => this.showSoluction(soluction), 100);
+    }
   }
 }

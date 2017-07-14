@@ -1,12 +1,12 @@
 export class State {
     board: number[][] = [];
-    heuristic: number = 0;
+    hn: number = 0;
     emptyCell: number;
     depth: number;
     visited: boolean = false;
     parent: State;   
 
-    constructor(board: number[][], depth) {
+    constructor(board: number[][], depth: number, parent: State) {
         for (let i = 0; i < 3; i++) {
             this.board[i] = [];
             for (let j = 0; j < 3; j++) {
@@ -14,15 +14,16 @@ export class State {
             }
         }
         
+        this.parent = parent;
         this.depth = depth;
-        this.hn();
+        this.heuristic();
     }
 
     private manhathanDistance(A: number[], B: number[]) {
         return Math.abs(B[0] - A[0]) + Math.abs(B[1] - A[1]);
     }
 
-    private hn() {
+    private heuristic() {
         let newHeuristic: number = 0;
         for (let i = 0; i < 3; i++)
             for (let j = 0; j < 3; j++) {
@@ -64,7 +65,7 @@ export class State {
                     }
                 }
             }
-        this.heuristic = newHeuristic + this.depth;
+        this.hn = newHeuristic;
     }
 
     // Tenta trocar o ponto (x1, y1) pelo ponto (x2, y2)
@@ -75,14 +76,21 @@ export class State {
             this.board[x1][y1] = 9;
             this.emptyCell = x1 * 3 + y1 + 1;
         }
-        this.hn();
+        this.heuristic();
         return this;
     }
 
-    logBoard() {
-       for (let i = 0; i < 3; i++)
-        console.log(this.board[i][0] + " " + this.board[i][1] + " " + this.board[i][2]);
-       console.log("h(n) =  "+ this.heuristic +"\n");
-       console.log("Profundidade: " + this.depth);
+    toString() {
+        let str: string = "";
+        for (let i = 0; i < 3; i++)
+            str += this.board[i][0] + " " + this.board[i][1] + " " + this.board[i][2]+"\n";
+        str += "h(n) =  "+ this.heuristic +"\n";
+        str += "Profundidade: " + this.depth;
+        return str;
+    }
+
+    visit() {
+        this.visited = true;
+        return this;
     }
 }
