@@ -1,7 +1,6 @@
 export class State {
     board: number[][] = [];
     hn: number = 0;
-    fn: number = 0;
     emptyCell: number;
     depth: number;
     visited: boolean = false;
@@ -18,7 +17,6 @@ export class State {
         this.parent = parent;
         this.depth = depth;
         this.heuristic();
-        this.fn = this.hn + depth;
     }
 
     private manhathanDistance(A: number[], B: number[]) {

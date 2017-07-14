@@ -16,7 +16,6 @@ export class AppComponent {
   constructor() {
     // Inicializa o puzzle com o estado alvo
     this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 0, null);
-    // this.shuflle(50);
   }
 
 
@@ -276,8 +275,6 @@ export class AppComponent {
   }
 
   solvePuzzle() {
-    console.log("Resolvendo...");
-
     // Estado corrente
     let currentState: State = new State(this.puzzle.board, 0, null);
 
