@@ -3,7 +3,6 @@ export class State {
     hn: number = 0;
     emptyCell: number;
     depth: number;
-    visited: boolean = false;
     parent: State;   
 
     constructor(board: number[][], depth: number, parent: State) {
@@ -71,7 +70,6 @@ export class State {
     // Tenta trocar o ponto (x1, y1) pelo ponto (x2, y2)
     swipe(x1: number, y1: number, x2: number, y2: number) {
         if (this.board[x2][y2] == 9) {
-            console.log("Trocou: "+ this.board[x1][y1]+", por "+ this.board[x2][y2]);
             this.board[x2][y2] = this.board[x1][y1];
             this.board[x1][y1] = 9;
             this.emptyCell = x1 * 3 + y1 + 1;
@@ -89,8 +87,14 @@ export class State {
         return str;
     }
 
-    visit() {
-        this.visited = true;
-        return this;
+    equals(state: State) {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (state.board[i][j] != this.board[i][j])
+                    return false;
+            }
+        }
+        
+        return true;
     }
 }

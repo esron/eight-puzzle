@@ -13,6 +13,8 @@ export class AppComponent {
   puzzle: State;
   title = "Eight Puzzle";
 
+  // Variaveis
+
   constructor() {
     // Inicializa o puzzle com o estado alvo
     this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 0, null);
@@ -175,11 +177,11 @@ export class AppComponent {
     }
   }
 
-  shuflle(n: number) {
+  shuffle(n: number) {
     if(n != 0){
         console.log("Embaralhando "+ (50 - n) +", celula vazia: " + this.puzzle.emptyCell);
         this.randomMove();
-        window.setTimeout(() => this.shuflle(n - 1), 100);
+        window.setTimeout(() => this.shuffle(n - 1), 100);
     }
   }
 
@@ -281,14 +283,22 @@ export class AppComponent {
     // Borda
     let border: State[] = [currentState];
 
+    // Visitados
+    let closedSet: State[] = [];
+    let visited: boolean;
+
     // Solução
     let soluction: State[] = [];
 
     while (border.length != 0) {
-      console.log("Expandindo: \n" + border[0].toString());
+      console.log("Border lenght =  " + border.length);
 
-      currentState = border.shift().visit();
+      // Remove o primeiro elemento da borda e insere nos visitados
+      currentState = border.shift();
+      closedSet.push(currentState);
 
+      // Para este caso específico a resposta é encontrada quando a 
+      // eurística é igual a zero
       if (currentState.hn == 0) {
         while(currentState.parent != null) {
           soluction.push(currentState);
@@ -297,20 +307,64 @@ export class AppComponent {
         break;
       }
 
-      this.expandBorder(currentState).forEach(element => { border.push(element) });
+      console.log("Expandindo: \n" + currentState.toString());
+      this.expandBorder(currentState).forEach(element => {
+        visited = false;
+        closedSet.forEach(visitedElement => {
+          if(element.equals(visitedElement)){
+            console.log("Já foi visitado");
+            visited = true;
+          }
+        });
+
+        if (!visited){
+          border.forEach(borderElement => {
+            if (element.equals(borderElement)) {
+              visited = true;
+            }
+          })
+          if (!visited){
+            console.log("inseriu na borda");
+            border.push(element)
+          }
+          else {
+            console.log("Não inseriu na borda");
+          }
+        }
+      });
+
       border.sort(this.compareHeuristc);
     }
 
     this.showSoluction(soluction);
     soluction = [];
     border = [];
-    alert("Boom! Resolvido :)");
+    closedSet = [];
+    alert("Boom! Resolvido :)\nOK para ver a solução");
   }
 
   showSoluction(soluction: State[]) {
     if (soluction.length != 0) {
       this.puzzle = soluction.pop();
       window.setTimeout(() => this.showSoluction(soluction), 100);
+    }
+  }
+
+  // Casos de teste
+  testCase(n: number) {
+    switch (n) {
+      case 1: {
+        this.puzzle.board = [[7, 1, 3], [2, 6, 9], [5, 4, 8]];
+        break;
+      }
+      case 2: {
+        this.puzzle.board = [[4, 2, 3], [6, 9, 1], [7, 5, 8]];
+        break;
+      }
+      case 3: {
+        this.puzzle.board = [[2, 3, 7], [5, 4, 8], [9, 6, 1]];
+        break;
+      }  
     }
   }
 }
