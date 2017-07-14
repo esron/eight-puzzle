@@ -13,9 +13,6 @@ export class AppComponent {
   puzzle: State;
   title = "Eight Puzzle";
 
-  // Variaveis auxiliares
-  emptyCell: number = 9;
-
   constructor() {
     // Inicializa o puzzle com o estado alvo
     this.puzzle = new State([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 0, null);
@@ -303,25 +300,14 @@ export class AppComponent {
         break;
       }
 
-
       this.expandBorder(currentState).forEach(element => { border.push(element) });
-
-      
-
-      
       border.sort(this.compareHeuristc);
     }
-
-    /*
-    for(let i = 0; i < 2; i++){
-      console.log("Expandindo: \n" + border[0].toString());
-      this.expandBorder(border.shift().visit()).forEach(element => { border.push(element) });
-      border.sort(this.compareHeuristc);
-    }
-    border.forEach(element => { console.log(element.toString()) });
-    */
 
     this.showSoluction(soluction);
+    soluction = [];
+    border = [];
+    alert("Boom! Resolvido :)");
   }
 
   showSoluction(soluction: State[]) {

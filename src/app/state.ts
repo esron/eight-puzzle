@@ -1,6 +1,7 @@
 export class State {
     board: number[][] = [];
     hn: number = 0;
+    fn: number = 0;
     emptyCell: number;
     depth: number;
     visited: boolean = false;
@@ -17,6 +18,7 @@ export class State {
         this.parent = parent;
         this.depth = depth;
         this.heuristic();
+        this.fn = this.hn + depth;
     }
 
     private manhathanDistance(A: number[], B: number[]) {
@@ -84,7 +86,7 @@ export class State {
         let str: string = "";
         for (let i = 0; i < 3; i++)
             str += this.board[i][0] + " " + this.board[i][1] + " " + this.board[i][2]+"\n";
-        str += "h(n) =  "+ this.heuristic +"\n";
+        str += "h(n) =  "+ this.hn +"\n";
         str += "Profundidade: " + this.depth;
         return str;
     }
