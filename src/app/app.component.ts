@@ -11,9 +11,16 @@ import { State } from './state';
 
 export class AppComponent {
   puzzle: State;
-  title = "Eight Puzzle";
+  // Variáveis de estilo
+  title: string = "Eight Puzzle";
+  gameMode: string = "Modo Humano";
+  godMode: boolean = false;
+  testedNodes: number;
+  nodesInMemory: number;
+  movesMade: number;
+  depth: number;
+  showReports: boolean = false;
 
-  // Variaveis
 
   constructor() {
     // Inicializa o puzzle com o estado alvo
@@ -22,7 +29,8 @@ export class AppComponent {
 
 
   // Executa um movimento
-  movement(cell: number, i: number, j: number) {
+  movement(cell: number) {
+    this.gameMode = "Modo Humano";
     console.log("Cliccou ne célula " + cell);
     switch (cell) {
       case 1: {
@@ -277,6 +285,12 @@ export class AppComponent {
   }
 
   solvePuzzle() {
+    // Zerand variáveis de relatório
+    this.movesMade = 0;
+    this.testedNodes = 0;
+    this.nodesInMemory = 0;
+    this.depth = 0;
+
     // Estado corrente
     let currentState: State = new State(this.puzzle.board, 0, null);
 
@@ -336,11 +350,14 @@ export class AppComponent {
       border.sort(this.compareHeuristc);
     }
 
+    this.gameMode = "Modo Máquina";
+    this.movesMade = soluction.length;
+    this.depth = soluction[0].depth;
+    this.nodesInMemory = closedSet.length + border.length;
     this.showSoluction(soluction);
-    soluction = [];
-    border = [];
-    closedSet = [];
+
     alert("Boom! Resolvido :)\nOK para ver a solução");
+    this.showReports = true;
   }
 
   showSoluction(soluction: State[]) {
