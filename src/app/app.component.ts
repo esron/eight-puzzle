@@ -17,7 +17,6 @@ export class AppComponent {
   godMode: boolean = false;
   testedNodes: number;
   nodesInMemory: number;
-  movesMade: number;
   depth: number;
   showReports: boolean = false;
 
@@ -286,7 +285,6 @@ export class AppComponent {
 
   solvePuzzle() {
     // Zerand variáveis de relatório
-    this.movesMade = 0;
     this.testedNodes = 0;
     this.nodesInMemory = 0;
     this.depth = 0;
@@ -351,7 +349,6 @@ export class AppComponent {
     }
 
     this.gameMode = "Modo Máquina";
-    this.movesMade = soluction.length;
     this.depth = soluction[0].depth;
     this.nodesInMemory = closedSet.length + border.length;
     this.showSoluction(soluction);
