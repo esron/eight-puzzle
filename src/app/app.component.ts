@@ -14,7 +14,7 @@ export class AppComponent {
   // Variáveis de estilo
   title: string = "Eight Puzzle";
   gameMode: string = "Modo Humano";
-  godMode: boolean = false;
+  showTests: boolean = false;
   testedNodes: number;
   nodesInMemory: number;
   depth: number;
@@ -309,6 +309,9 @@ export class AppComponent {
       currentState = border.shift();
       closedSet.push(currentState);
 
+      // Mais um nó testado
+      this.testedNodes++;
+
       // Para este caso específico a resposta é encontrada quando a 
       // eurística é igual a zero
       if (currentState.hn == 0) {
@@ -378,7 +381,7 @@ export class AppComponent {
       case 3: {
         this.puzzle.board = [[2, 3, 7], [5, 4, 8], [9, 6, 1]];
         break;
-      }  
+      }
     }
   }
 }

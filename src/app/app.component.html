@@ -11,12 +11,13 @@
     <div class="col-sm-3 sidenav">
       <input class="btn" type="button" (click)="shuffle(50)" value="Embaralhar"><br><br>
       <input class="btn" type="button" (click)="solvePuzzle()" value="Solucionar"><br><br>
-      <input class="btn" type="button" (click)="godMode = !godMode" value="Testes"><br><br>
+      <input class="btn" type="button" (click)="showTests = !showTests" value="Testes"><br><br>
       <br>
       <div *ngIf="showReports">
         <h2> Relatórios </h2>
         <p>Profundidade da solução: {{ depth }}</p>
         <p>Nós na memoria: {{ nodesInMemory }}</p>
+        <p>Nós testados: {{ testedNodes }}</p>
       </div>
     </div>
     <div class="col-sm-6"> 
@@ -54,10 +55,51 @@
             </tbody>
           </table>
     </div>
-    <div class="col-sm-3" [style.display]="godMode ? 'inline' : 'none'">
-      <input class="btn" type="button" value="Teste 1" (click)="testCase(1)">
-      <input class="btn" type="button" value="Teste 2" (click)="testCase(2)">
-      <input class="btn" type="button" value="Teste 3" (click)="testCase(3)">
+    <div class="col-sm-3 sidenav =" [style.display]="showTests ? 'inline' : 'none'">
+      <input class="btn" type="button" value="Teste 1" (click)="testCase(1)"><br><br>
+      <input class="btn" type="button" value="Teste 2" (click)="testCase(2)"><br><br>
+      <input class="btn" type="button" value="Teste 3" (click)="testCase(3)"><br><br>
+      <br>
+      <h3> Modo deus </h3>
+      <div class="row">
+        <div class="form-group row">
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[0][0]">
+          </div>
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[0][1]">
+          </div>
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[0][2]">
+          </div>
+        </div> 
+      </div>
+      <div class="row">
+        <div class="form-group row">
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[1][0]">
+          </div>
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[1][1]">
+          </div>
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[1][2]">
+          </div>
+        </div> 
+      </div>
+      <div class="row">
+        <div class="form-group row">
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[2][0]">
+          </div>
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[2][1]">
+          </div>
+          <div class="col-xs-3">
+            <input class="form-control" type="text" [(ngModel)]="puzzle.board[2][2]">
+          </div>
+        </div> 
+      </div>
     </div>
   </div>
 </div>
